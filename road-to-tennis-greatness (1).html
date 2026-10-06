@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ROAD TO TENNIS GREATNESS // MISSION CONTROL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap');
+:root{
+  --void:#05070b;
+  --panel:#0a1017;
+  --panel2:#0d151f;
+  --cyan:#55f6ff;
+  --acid:#d8ff3e;
+  --orange:#ff9d4d;
+  --white:#edf7f8;
+  --muted:#82939e;
+  --line:rgba(85,246,255,.18);
+  --line2:rgba(216,255,62,.18);
+  --danger:#ff5570;
+  --shadow:0 22px 70px rgba(0,0,0,.48);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--white);background:
+  radial-gradient(circle at 75% 8%,rgba(85,246,255,.10),transparent 28%),
+  radial-gradient(circle at 12% 28%,rgba(216,255,62,.07),transparent 24%),
+  #05070b;
+  font-family:"Barlow Condensed",Arial,sans-serif;min-height:100vh;overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;mask-image:linear-gradient(to bottom,#000,transparent 90%);
+}
+button,input,select,textarea{font:inherit;color:var(--white)}
+button{cursor:pointer}
+.app{width:min(1220px,calc(100% - 28px));margin:auto;padding:22px 0 70px}
+.topbar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:0 0 14px;margin-bottom:24px}
+.brand{font-family:Orbitron,sans-serif;font-size:11px;letter-spacing:.22em;color:var(--cyan)}
+.status{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.14em;color:var(--acid);display:flex;gap:8px;align-items:center}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--acid);box-shadow:0 0 14px var(--acid);animation:blink 1.5s infinite}
+@keyframes blink{50%{opacity:.35}}
+.hero{display:grid;grid-template-columns:300px 1fr;gap:34px;align-items:center;min-height:440px;position:relative}
+.hero:after{
+  content:"";position:absolute;right:-10%;bottom:10%;width:55%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);transform:rotate(-11deg);opacity:.35
+}
+.profile-wrap{position:relative;width:270px;height:270px;display:grid;place-items:center}
+.profile-wrap:before,.profile-wrap:after{content:"";position:absolute;border:1px solid var(--cyan);inset:0;border-radius:50%;transform:rotate(18deg);opacity:.6}
+.profile-wrap:after{inset:-18px;border-color:var(--acid);transform:rotate(-28deg);opacity:.22}
+.profile{width:235px;height:235px;border-radius:50%;object-fit:cover;object-position:74% 22%;border:3px solid var(--cyan);box-shadow:0 0 0 8px rgba(85,246,255,.06),0 0 55px rgba(85,246,255,.14),var(--shadow)}
+.profile-wrap .orbit{position:absolute;inset:-7px;border:1px dashed rgba(216,255,62,.55);border-radius:50%;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.eyebrow{font-family:Orbitron,sans-serif;font-size:12px;letter-spacing:.22em;color:var(--cyan);text-transform:uppercase;margin:0 0 12px}
+h1{font-family:Orbitron,sans-serif;font-size:clamp(38px,7vw,78px);line-height:.93;letter-spacing:-.055em;margin:0;text-transform:uppercase}
+h1 span{display:block;color:var(--acid);text-shadow:0 0 25px rgba(216,255,62,.18)}
+.lede{font-size:21px;line-height:1.38;max-width:680px;color:#b8c7ce;margin:18px 0}
+.name-row{display:flex;gap:9px;max-width:430px}
+input,select,textarea{
+  width:100%;background:rgba(6,11,17,.85);border:1px solid rgba(130,147,158,.28);
+  border-radius:8px;padding:12px 13px;outline:none;transition:.2s
+}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(85,246,255,.08)}
+.name-row input{font-family:Orbitron,sans-serif;font-size:12px}
+.btn{border:1px solid var(--cyan);background:var(--cyan);color:#031014;border-radius:7px;padding:12px 17px;font-family:Orbitron,sans-serif;font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 24px rgba(85,246,255,.12)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(85,246,255,.25)}
+.btn.ghost{background:transparent;color:var(--cyan)}
+.btn.acid{background:var(--acid);border-color:var(--acid);color:#111700}
+.btn.danger{background:transparent;color:var(--danger);border-color:var(--danger);box-shadow:none;padding:9px 12px;font-size:10px}
+.btn.danger:hover{background:rgba(255,85,112,.12);box-shadow:0 0 18px rgba(255,85,112,.14)}
+.age-command{
+  margin:0 0 20px;padding:18px 20px;border:1px solid var(--line2);background:linear-gradient(105deg,rgba(216,255,62,.055),rgba(85,246,255,.035));
+  position:relative;overflow:hidden;clip-path:polygon(0 0,99% 0,100% 76%,97.8% 100%,0 100%);
+}
+.age-command:before{content:"AGE IS THE ADVANTAGE";position:absolute;right:16px;top:11px;font:800 10px Orbitron;letter-spacing:.16em;color:rgba(216,255,62,.5)}
+.age-command .mission{font-family:Orbitron;font-size:clamp(18px,3vw,28px);line-height:1.2;margin:0;color:var(--white);max-width:850px}
+.age-line{margin:8px 0 0;color:var(--cyan);font:600 12px Orbitron;letter-spacing:.08em;text-transform:uppercase}
+.vision-header{
+  font:800 11px Orbitron;
+  letter-spacing:.22em;
+  color:var(--acid);
+  margin:0 0 10px;
+  text-transform:uppercase;
+  animation:visionPulse 2.2s ease-in-out infinite;
+}
+@keyframes visionPulse{
+  0%,100%{opacity:1;text-shadow:0 0 8px rgba(216,255,62,.35)}
+  50%{opacity:.55;text-shadow:0 0 22px rgba(216,255,62,.85)}
+}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.stat{background:linear-gradient(135deg,rgba(13,21,31,.96),rgba(7,12,18,.94));border:1px solid rgba(130,147,158,.17);padding:17px;position:relative;min-height:105px;overflow:hidden}
+.stat:after{content:"";position:absolute;right:-25px;bottom:-25px;width:90px;height:90px;border:1px solid var(--cyan);transform:rotate(45deg);opacity:.12}
+.stat b{display:block;font:800 34px Orbitron;color:var(--cyan)}
+.stat:nth-child(2) b{color:var(--acid)}
+.stat:nth-child(3) b{color:var(--orange)}
+.stat:nth-child(4) b{color:#fff}
+.stat span{display:block;margin-top:7px;color:var(--muted);font:600 11px Orbitron;letter-spacing:.10em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:16px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.card{background:linear-gradient(145deg,rgba(10,16,23,.97),rgba(7,11,16,.94));border:1px solid rgba(130,147,158,.17);padding:22px;position:relative;box-shadow:var(--shadow);overflow:hidden}
+.card:before{content:"";position:absolute;left:0;top:0;width:90px;height:2px;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
+.card h2{font:700 clamp(24px,3vw,32px)/1.08 Orbitron;margin:0 0 8px;text-transform:uppercase;letter-spacing:-.03em}
+.card h2 em{color:var(--cyan);font-style:normal}
+.sub{color:var(--muted);font-size:17px;line-height:1.38;margin:0 0 17px}
+.mission-label{font:700 9px Orbitron;letter-spacing:.2em;color:var(--acid);margin-bottom:10px}
+.check{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:center;min-height:84px;padding:12px 10px;border-top:1px solid rgba(130,147,158,.12);transition:.2s}
+.check:hover{background:rgba(85,246,255,.025)}
+.check input{width:22px;height:22px;min-width:22px;min-height:22px;margin:0;accent-color:var(--acid)}
+.check label{font-size:18px;line-height:1.25;min-height:48px;display:flex;align-items:center}
+.check input:checked+label{text-decoration:line-through;color:#68777f}
+.ladder{display:flex;flex-direction:column;gap:7px}
+.rung{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;text-align:left;padding:12px;border:1px solid rgba(130,147,158,.14);background:rgba(255,255,255,.018);color:var(--white);transition:.25s}
+.rung:hover{border-color:var(--cyan);transform:translateX(3px)}
+.rung .year{font:800 18px Orbitron;color:var(--muted)}
+.rung strong{font:700 17px Orbitron}.rung small{display:block;color:var(--muted);font-size:15px;line-height:1.2;margin-top:4px}
+.rung .aim{font:700 10px Orbitron;letter-spacing:.08em;color:var(--muted)}
+.rung.on{border-color:var(--acid);background:linear-gradient(90deg,rgba(216,255,62,.11),rgba(85,246,255,.035));box-shadow:inset 3px 0 var(--acid),0 0 25px rgba(216,255,62,.05)}
+.rung.on .year,.rung.on .aim{color:var(--acid)}
+.form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:7px;color:var(--muted);font:600 12px Orbitron;letter-spacing:.08em;text-transform:uppercase}
+textarea{min-height:82px;resize:vertical}
+.archive-bar{display:flex;justify-content:flex-end;margin-top:14px}
+.list{display:flex;flex-direction:column;gap:7px;margin-top:16px;max-height:390px;overflow:auto}
+.item{padding:13px;border-left:2px solid var(--cyan);background:rgba(255,255,255,.025)}
+.item strong{font:700 13px Orbitron;letter-spacing:.025em}.item span{display:block;color:var(--muted);font-size:16px;line-height:1.25;margin-top:5px}
+.empty{border-left-color:rgba(130,147,158,.25)}
+input[readonly]{color:var(--cyan);border-color:rgba(85,246,255,.35);background:rgba(85,246,255,.05)}
+.achievement{
+  display:none;margin-top:16px;padding:18px;border:1px solid var(--acid);
+  background:linear-gradient(110deg,rgba(216,255,62,.12),rgba(85,246,255,.06));position:relative
+}
+.achievement.show{display:block;animation:unlock .55s ease both}
+@keyframes unlock{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.achievement .tag{font:800 9px Orbitron;letter-spacing:.2em;color:var(--acid)}
+.achievement h3{font:800 25px Orbitron;margin:7px 0 3px}.achievement p{margin:0;color:#b9c8ce;font-size:16px}
+.video-frame{position:relative;width:100%;aspect-ratio:16/9;margin-top:14px;background:#070c12;border:1px solid rgba(130,147,158,.2)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font:700 12px Orbitron;letter-spacing:.12em;text-align:center;padding:20px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#0c161d;border:1px solid var(--acid);padding:13px 18px;box-shadow:0 0 35px rgba(216,255,62,.16);font:700 11px Orbitron;letter-spacing:.06em;opacity:0;pointer-events:none;transition:.3s;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:850px){
+ .hero,.grid,.split,.age-panel{grid-template-columns:1fr}
+ .age-calculator{border-left:0;border-top:1px solid var(--line2);padding:14px 0 0}
+ .hero{min-height:0;padding:25px 0 30px}.profile-wrap{width:210px;height:210px}.profile{width:180px;height:180px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .hero:after{display:none}
+}
+@media(max-width:520px){
+ .app{width:min(100% - 18px,1220px);padding-top:12px}
+ .topbar{margin-bottom:10px}.status{font-size:8px}.brand{font-size:9px}
+ .stats{grid-template-columns:1fr 1fr}.stat{min-height:90px;padding:13px}.stat b{font-size:24px}
+ .row{grid-template-columns:1fr}.card{padding:17px}
+ h1{font-size:39px}.lede{font-size:18px}
+ .age-command:before{display:none}
+}
+.age-panel{
+  display:grid;
+  grid-template-columns:1fr 250px;
+  gap:36px;
+  align-items:center;
+}
+.age-calculator{
+  border-left:1px solid var(--line2);
+  padding-left:20px;
+  margin-top:10px;
+}
+.age-calculator label{display:block;font:700 10px Orbitron;letter-spacing:.12em;color:var(--acid);margin-bottom:7px}
+.age-calculator input{font:600 13px Orbitron;padding:10px}
+.calculated-age{display:flex;align-items:baseline;gap:8px;margin-top:8px}
+.calculated-age strong{font:800 30px Orbitron;color:var(--cyan)}
+.calculated-age span{font:700 9px Orbitron;letter-spacing:.1em;color:var(--muted)}
+.rung .achieved-control{display:flex;align-items:center;gap:5px;margin-top:7px;color:var(--muted);font:700 9px Orbitron;letter-spacing:.05em}
+.rung .achieved-control input{width:15px;height:15px;accent-color:var(--acid);margin:0}
+.rung.achieved{border-color:rgba(216,255,62,.55);background:linear-gradient(90deg,rgba(216,255,62,.13),rgba(85,246,255,.035))}
+.rung.achieved .year{color:var(--acid);text-shadow:0 0 14px rgba(216,255,62,.18)}
+.rung.achieved .aim{color:var(--acid)}
+.rung .target-state{font:800 9px Orbitron;letter-spacing:.08em;white-space:nowrap}
+.rung .target-state.done{color:var(--acid)}
+.rung .target-state.pending{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">WALSALL ACES // PLAYER DEVELOPMENT SYSTEM</div>
+    <div class="status"><i></i> MISSION ACTIVE</div>
+  </div>
+  <header class="hero">
+    <div class="profile-wrap">
+      <div class="orbit"></div>
+      <img class="profile" src="tennis%20warrior.jpg" alt="Tennis player profile">
+    </div>
+    <div>
+      <p class="eyebrow">THE CHARTER // 01</p>
+      <h1>The Road To <span>Tennis Greatness</span></h1>
+      <p class="lede">Not a countdown to decline. A campaign against expectation. Train the body, sharpen the game, record the evidence — and make every age group another chapter.</p>
+      <div class="name-row">
+        <input id="playerName" maxlength="40" placeholder="IDENTIFY PLAYER" aria-label="Your name">
+        <button class="btn ghost" id="saveName" type="button">Lock In</button>
+      </div>
+    </div>
+  </header>
+  <section class="age-command">
+    <div class="age-panel">
+      <div>
+        <div class="vision-header">VISION</div>
+        <p class="mission" id="targetLine">To become the greatest tennis player the senior age groups have ever seen.</p>
+        <p class="age-line" id="ageLine"></p>
+      </div>
+      <div class="age-calculator">
+        <label for="birthDate">PLAYER AGE CALCULATOR</label>
+        <input id="birthDate" type="date" aria-label="Date of birth">
+        <div class="calculated-age"><strong id="calculatedAge">—</strong><span>YEARS OLD</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="stats" id="stats"></section>
+  <div class="grid">
+    <section class="card">
+      <div class="mission-label">CURRENT OPERATIONS // WEEKLY MISSION</div>
+      <h2>Mission <em>Control</em></h2>
+      <p class="sub">Five deliberate actions. Clear targets. The week resets every Monday. Completion is evidence that the mission is moving.</p>
+      <div id="week"></div>
+      <div class="achievement" id="achievement">
+        <div class="tag">ACHIEVEMENT UNLOCKED</div>
+        <h3 id="achievementTitle">MISSION COMPLETE</h3>
+        <p id="achievementText"></p>
+      </div>
+    </section>
+    <section class="card">
+      <div class="mission-label">LONG GAME // AGE ASCENSION</div>
+      <h2>The <em>Ascension</em></h2>
+      <p class="sub">Age is not the enemy. Every five-year band is another arena. Select your current battlefield.</p>
+      <div class="ladder" id="ladder"></div>
+    </section>
+  </div>
+  <div class="split">
+    <section class="card">
+      <div class="mission-label">FIELD INTELLIGENCE // SESSION DATA</div>
+      <h2>Session <em>Intel</em></h2>
+      <p class="sub">Record the work. Capture the fault. Turn what the session reveals into the next mission.</p>
+      <form class="form" id="sessionForm">
+        <div class="row">
+          <label class="field">Date<input type="date" name="date" required></label>
+          <label class="field">Operation<select name="type">
+            <option>Serve basket</option><option>Wall or machine</option><option>Practice set</option><option>Match</option><option>Strength</option>
+          </select></label>
+        </div>
+        <div class="row">
+          <label class="field">First serves in<input type="number" name="in" min="0" value="0"></label>
+          <label class="field">First-serve attempts<input type="number" name="attempts" min="0" value="0"></label>
+        </div>
+        <label class="field">Fault of the fortnight<select name="fault">
+          <option>Toss and first serve</option><option>Late contact</option><option>No recovery to the middle</option><option>Second-serve pressure</option><option>Movement / recovery</option>
+        </select></label>
+        <label class="field">Field note<textarea name="note" maxlength="400" placeholder="What did the film show? What changes next?"></textarea></label>
+        <button class="btn" type="submit">Archive Session</button>
+      </form>
+      <div class="archive-bar"><button class="btn danger" id="clearSessions" type="button">Clear archive</button></div>
+      <div class="list" id="sessions"></div>
+    </section>
+    <section class="card">
+      <div class="mission-label">COMPETITION // MATCH ARCHIVE</div>
+      <h2>Match <em>Book</em></h2>
+      <p class="sub">Score is only one layer. Capture the pattern that beat you — because that pattern becomes tomorrow's weapon.</p>
+      <form class="form" id="matchForm">
+        <div class="row">
+          <label class="field">Date<input type="date" name="date" id="matchDate" required></label>
+          <label class="field">Player age at match<input type="text" id="matchAge" name="matchAge" readonly></label>
+        </div>
+        <label class="field">Opponent<input name="opponent" maxlength="80" required placeholder="Name or club"></label>
+        <label class="field">Score<input name="score" maxlength="40" placeholder="6-4, 3-6, 10-6"></label>
+        <label class="field">Pattern that beat you<textarea name="pattern" maxlength="300" placeholder="Wide serve, then wrong-foot"></textarea></label>
+        <button class="btn acid" type="submit">Archive Match</button>
+      </form>
+      <div class="archive-bar"><button class="btn danger" id="clearMatches" type="button">Clear archive</button></div>
+      <div class="list" id="matches"></div>
+    </section>
+  </div>
+  <section class="card" style="margin-top:16px">
+    <div class="mission-label">FILM ROOM // CHANNEL PLAYLIST</div>
+    <h2>Match <em>Film</em></h2>
+    <p class="sub">Paste a YouTube playlist link. The film stays on this device and loads in the frame below.</p>
+    <form class="form" id="videoForm">
+      <label class="field">YouTube playlist
+        <input id="playlistUrl" name="playlist" placeholder="https://www.youtube.com/playlist?list=...">
+      </label>
+      <button class="btn" type="submit">Load playlist</button>
+    </form>
+    <div class="video-frame" id="videoFrame">
+      <div class="video-empty" id="videoEmpty">NO PLAYLIST LOADED</div>
+    </div>
+  </section>
+  <footer>
+    ROAD TO TENNIS GREATNESS // PERSONAL PLAYER SYSTEM<br>
+    Stored on this device only. British seniors run in five-year bands, with formal competition continuing through the 85s and 90s.
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY="road-to-greatness-v2";
+const WEEK=[
+  "Serve session — hit 70%+ first serves in and 90%+ second serves in (count every ball)",
+  "Ball machine — one winning pattern only (wide serve → wrong-foot, body serve → inside-out FH, or kick serve → recover centre)",
+  "Competitive set or match simulation — play every point as if it is a match point (no mid-point advice)",
+  "Strength session — legs, hips, core and grip (the engines of senior longevity)",
+  "Second strength session or true recovery day (sleep, mobility, or complete rest)"
+];
+const RUNGS=[
+ ["60s","THE FOUNDATION","Take the club. Then take the 60s event.","Current battlefield"],
+ ["65s","THE NEXT FRONTIER","Enter the band and chase the county title.","Target"],
+ ["70s","THE DEFENCE","Still first on the team sheet. Title defence, not farewell.","Target"],
+ ["75s","THE RECORD","National seniors. The record starts to look like a career.","Target"],
+ ["80s","THE ENDURANCE","Play the oldest fields that still fill a draw.","Target"],
+ ["85s+","THE LEGACY","The final bands still crowned. Finish the road there.","Target"]
+];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+function weekId(){
+ const now=new Date(),day=(now.getDay()+6)%7,m=new Date(now);
+ m.setDate(now.getDate()-day);return m.toISOString().slice(0,10)
+}
+function state(){
+ const d=load();
+ d.name=d.name||""; d.birthDate=d.birthDate||((d.birthYear||1964)+"-01-01"); d.birthYear=Number(d.birthDate.slice(0,4))||d.birthYear||1964;
+ d.rung=Number.isInteger(d.rung)?d.rung:0; d.achieved=d.achieved||{};
+ d.sessions=d.sessions||[];d.matches=d.matches||[];d.playlist=d.playlist||"";d.week=d.week||{};d.weekId=d.weekId||weekId();
+ if(d.weekId!==weekId()){d.week={};d.weekId=weekId()}
+ return d;
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[m]))}
+function calculateAge(dateString, asOfString){
+ if(!dateString)return "—";
+ const dob=new Date(dateString+"T00:00:00");
+ if(Number.isNaN(dob.getTime()))return "—";
+ const asOf=asOfString?new Date(asOfString+"T00:00:00"):new Date();
+ if(Number.isNaN(asOf.getTime()))return "—";
+ let age=asOf.getFullYear()-dob.getFullYear();
+ const beforeBirthday=(asOf.getMonth()<dob.getMonth()) || (asOf.getMonth()===dob.getMonth() && asOf.getDate()<dob.getDate());
+ if(beforeBirthday)age--;
+ return Math.max(0,age);
+}
+function syncMatchAge(){
+ const d=state();
+ const matchDate=document.getElementById("matchDate").value;
+ const age=calculateAge(d.birthDate, matchDate);
+ document.getElementById("matchAge").value=age==="—"?"":age;
+ return age;
+}
+function playlistEmbed(url){
+ const raw=String(url||"").trim();
+ if(!raw)return "";
+ let id="";
+ try{
+  const u=new URL(raw);
+  id=u.searchParams.get("list")||"";
+  if(!id && u.pathname.includes("/playlist/"))id=u.pathname.split("/playlist/")[1].split("/")[0];
+ }catch(e){
+  id=/^[A-Za-z0-9_-]{8,}$/.test(raw)?raw:"";
+ }
+ if(!id)return "";
+ return "https://www.youtube.com/embed/videoseries?list="+encodeURIComponent(id);
+}
+function renderPlaylist(){
+ const d=state();
+ const frame=document.getElementById("videoFrame");
+ const embed=playlistEmbed(d.playlist);
+ document.getElementById("playlistUrl").value=d.playlist;
+ frame.innerHTML=embed
+  ? `<iframe src="${embed}" title="YouTube playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`
+  : `<div class="video-empty" id="videoEmpty">NO PLAYLIST LOADED</div>`;
+}
+function toast(msg){
+ const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");
+ clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove("show"),2200)
+}
+function render(){
+ const d=state();
+ document.getElementById("playerName").value=d.name;
+ document.getElementById("birthDate").value=d.birthDate;
+ const age=calculateAge(d.birthDate);
+ document.getElementById("calculatedAge").textContent=age;
+ document.getElementById("ageLine").textContent=(d.name?d.name+"  //  ":"")+age+" YEARS OLD  //  AGE IS PART OF THE MISSION";
+ const serves=d.sessions.reduce((n,s)=>n+Number(s.in||0),0);
+ const attempts=d.sessions.reduce((n,s)=>n+Number(s.attempts||0),0);
+ const pct=attempts?Math.round(serves/attempts*100):0;
+ const completed=Object.values(d.week).filter(Boolean).length;
+ document.getElementById("stats").innerHTML=[
+  [d.sessions.length,"Sessions archived"],
+  [pct+"%","First serves in"],
+  [d.matches.length,"Matches archived"],
+  [completed+"/5","Weekly mission"]
+ ].map(x=>`<div class="stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
+ document.getElementById("week").innerHTML=WEEK.map((x,i)=>
+  `<div class="check"><input type="checkbox" data-week="${i}" ${d.week[i]?"checked":""}><label>${x}</label></div>`).join("");
+ const achievement=document.getElementById("achievement");
+ if(completed===5){
+   achievement.classList.add("show");
+   document.getElementById("achievementTitle").textContent="WEEK: 100% COMPLETE";
+   document.getElementById("achievementText").textContent="Five actions executed. The mission is not theoretical anymore — it is in the log.";
+ }else achievement.classList.remove("show");
+ document.getElementById("ladder").innerHTML=RUNGS.map((r,i)=>{
+  const done=!!d.achieved[i];
+  return `<button type="button" class="rung ${d.rung===i?"on ":""}${done?"achieved":""}" data-rung="${i}">
+    <span class="year">${r[0]}</span>
+    <span>
+      <strong>${r[1]}</strong><small>${r[2]}</small>
+      <label class="achieved-control" onclick="event.stopPropagation()">
+        <input type="checkbox" data-achieved="${i}" ${done?"checked":""}>
+        <span>ASCENSION ACHIEVED</span>
+      </label>
+    </span>
+    <span class="target-state ${done?"done":"pending"}">${done?"✓ ACHIEVED":(d.rung===i?"ACTIVE":"TARGET")}</span>
+  </button>`
+}).join("");
+ document.getElementById("sessions").innerHTML=d.sessions.slice(0,8).map(s=>{
+  const p=s.attempts?Math.round(s.in/s.attempts*100)+"% first serves in":"No serve ratio";
+  return `<div class="item"><strong>${esc(s.date)} // ${esc(s.type)} // ${p}</strong><span>${esc(s.fault)}${s.note?" — "+esc(s.note):""}</span></div>`
+ }).join("")||`<div class="item empty"><span>Session archive empty. The first entry starts the record.</span></div>`;
+ document.getElementById("matches").innerHTML=d.matches.slice(0,8).map(m=>{
+  const matchAge=calculateAge(d.birthDate, m.date);
+  return `<div class="item"><strong>${esc(m.date)} // AGE ${esc(matchAge)} // ${esc(m.opponent)} // ${esc(m.score||"NO SCORE")}</strong><span>${esc(m.pattern||"No pattern noted")}</span></div>`
+ }).join("")||`<div class="item empty"><span>Match archive empty. Your first battle is waiting to be recorded.</span></div>`;
+ syncMatchAge();
+ renderPlaylist();
+}
+document.getElementById("birthDate").onchange=()=>{
+ const d=state();d.birthDate=document.getElementById("birthDate").value;d.birthYear=Number(d.birthDate.slice(0,4));save(d);render();toast("PLAYER AGE RECALCULATED");
+};
+document.getElementById("matchDate").onchange=()=>syncMatchAge();
+document.getElementById("saveName").onclick=()=>{
+ const d=state();d.name=document.getElementById("playerName").value.trim();save(d);render();toast("PLAYER ID LOCKED");
+};
+document.getElementById("week").onclick=e=>{
+ const b=e.target.closest("[data-week]");if(!b)return;
+ const d=state();d.week[b.dataset.week]=b.checked;save(d);render();
+ if(Object.values(d.week).filter(Boolean).length===5)toast("ACHIEVEMENT UNLOCKED // WEEK COMPLETE");
+};
+document.getElementById("ladder").onclick=e=>{
+ const achievementBox=e.target.closest("[data-achieved]");
+ if(achievementBox){
+   const d=state(),i=Number(achievementBox.dataset.achieved);
+   d.achieved[i]=achievementBox.checked;
+   save(d);render();
+   toast(achievementBox.checked ? "ASCENSION ACHIEVED // "+RUNGS[i][0] : "ACHIEVEMENT STATUS REOPENED");
+   return;
+ }
+ const r=e.target.closest("[data-rung]");if(!r)return;
+ const d=state();d.rung=Number(r.dataset.rung);save(d);render();toast("BATTLEFIELD SELECTED // "+RUNGS[d.rung][0]);
+};
+document.getElementById("sessionForm").onsubmit=e=>{
+ e.preventDefault();const f=new FormData(e.target),d=state();
+ d.sessions.unshift({date:f.get("date"),type:f.get("type"),in:Number(f.get("in")||0),attempts:Number(f.get("attempts")||0),fault:f.get("fault"),note:f.get("note")});
+ save(d);e.target.reset();document.querySelectorAll("#sessionForm input[type=date]").forEach(x=>x.value=new Date().toISOString().slice(0,10));render();toast("SESSION ARCHIVED // EVIDENCE ADDED");
+};
+document.getElementById("matchForm").onsubmit=e=>{
+ e.preventDefault();const f=new FormData(e.target),d=state();
+ const matchDate=f.get("date");
+ const age=calculateAge(d.birthDate, matchDate);
+ d.matches.unshift({date:matchDate,opponent:f.get("opponent"),score:f.get("score"),pattern:f.get("pattern"),age});
+ save(d);e.target.reset();document.querySelectorAll("#matchForm input[type=date]").forEach(x=>x.value=new Date().toISOString().slice(0,10));render();toast("MATCH ARCHIVED // BATTLE RECORDED");
+};
+document.getElementById("videoForm").onsubmit=e=>{
+ e.preventDefault();
+ const raw=document.getElementById("playlistUrl").value.trim();
+ const embed=playlistEmbed(raw);
+ if(raw && !embed){toast("PLAYLIST LINK NOT RECOGNISED");return;}
+ const d=state();d.playlist=raw;save(d);render();toast(raw?"PLAYLIST LOADED // FILM ROOM OPEN":"PLAYLIST CLEARED");
+};
+document.getElementById("clearSessions").onclick=()=>{
+ const d=state();
+ if(!d.sessions.length){toast("SESSION ARCHIVE ALREADY EMPTY");return;}
+ if(!confirm("Clear the entire session archive? This cannot be undone on this device."))return;
+ d.sessions=[];save(d);render();toast("SESSION ARCHIVE CLEARED");
+};
+document.getElementById("clearMatches").onclick=()=>{
+ const d=state();
+ if(!d.matches.length){toast("MATCH ARCHIVE ALREADY EMPTY");return;}
+ if(!confirm("Clear the entire match book? This cannot be undone on this device."))return;
+ d.matches=[];save(d);render();toast("MATCH ARCHIVE CLEARED");
+};
+document.querySelectorAll('input[type="date"]').forEach(x=>x.value=new Date().toISOString().slice(0,10));
+render();
+</script>
+</body>
+</html>
