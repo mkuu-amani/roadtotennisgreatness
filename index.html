@@ -6,7 +6,6 @@
 <title>ROAD TO TENNIS GREATNESS // MISSION CONTROL</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap');
-
 :root{
   --void:#05070b;
   --panel:#0a1017;
@@ -43,7 +42,6 @@ button{cursor:pointer}
 .status{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:.14em;color:var(--acid);display:flex;gap:8px;align-items:center}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--acid);box-shadow:0 0 14px var(--acid);animation:blink 1.5s infinite}
 @keyframes blink{50%{opacity:.35}}
-
 .hero{display:grid;grid-template-columns:300px 1fr;gap:34px;align-items:center;min-height:440px;position:relative}
 .hero:after{
   content:"";position:absolute;right:-10%;bottom:10%;width:55%;height:1px;
@@ -70,7 +68,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .btn:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(85,246,255,.25)}
 .btn.ghost{background:transparent;color:var(--cyan)}
 .btn.acid{background:var(--acid);border-color:var(--acid);color:#111700}
-
 .age-command{
   margin:0 0 20px;padding:18px 20px;border:1px solid var(--line2);background:linear-gradient(105deg,rgba(216,255,62,.055),rgba(85,246,255,.035));
   position:relative;overflow:hidden;clip-path:polygon(0 0,99% 0,100% 76%,97.8% 100%,0 100%);
@@ -78,7 +75,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .age-command:before{content:"AGE IS THE ADVANTAGE";position:absolute;right:16px;top:11px;font:800 10px Orbitron;letter-spacing:.16em;color:rgba(216,255,62,.5)}
 .age-command .mission{font-family:Orbitron;font-size:clamp(18px,3vw,28px);line-height:1.2;margin:0;color:var(--white);max-width:850px}
 .age-line{margin:8px 0 0;color:var(--cyan);font:600 12px Orbitron;letter-spacing:.08em;text-transform:uppercase}
-
+.vision-header{
+  font:800 11px Orbitron;
+  letter-spacing:.22em;
+  color:var(--acid);
+  margin:0 0 10px;
+  text-transform:uppercase;
+  animation:visionPulse 2.2s ease-in-out infinite;
+}
+@keyframes visionPulse{
+  0%,100%{opacity:1;text-shadow:0 0 8px rgba(216,255,62,.35)}
+  50%{opacity:.55;text-shadow:0 0 22px rgba(216,255,62,.85)}
+}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
 .stat{background:linear-gradient(135deg,rgba(13,21,31,.96),rgba(7,12,18,.94));border:1px solid rgba(130,147,158,.17);padding:17px;position:relative;min-height:105px;overflow:hidden}
 .stat:after{content:"";position:absolute;right:-25px;bottom:-25px;width:90px;height:90px;border:1px solid var(--cyan);transform:rotate(45deg);opacity:.12}
@@ -87,7 +95,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .stat:nth-child(3) b{color:var(--orange)}
 .stat:nth-child(4) b{color:#fff}
 .stat span{display:block;margin-top:7px;color:var(--muted);font:600 11px Orbitron;letter-spacing:.10em;text-transform:uppercase}
-
 .grid{display:grid;grid-template-columns:1.08fr .92fr;gap:16px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
 .card{background:linear-gradient(145deg,rgba(10,16,23,.97),rgba(7,11,16,.94));border:1px solid rgba(130,147,158,.17);padding:22px;position:relative;box-shadow:var(--shadow);overflow:hidden}
@@ -96,13 +103,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .card h2 em{color:var(--cyan);font-style:normal}
 .sub{color:var(--muted);font-size:17px;line-height:1.38;margin:0 0 17px}
 .mission-label{font:700 9px Orbitron;letter-spacing:.2em;color:var(--acid);margin-bottom:10px}
-
 .check{display:flex;gap:12px;align-items:flex-start;padding:14px 2px;border-top:1px solid rgba(130,147,158,.12);transition:.2s}
 .check:hover{background:rgba(85,246,255,.025)}
 .check input{margin-top:2px;width:19px;height:19px;accent-color:var(--acid)}
 .check label{font-size:19px;line-height:1.2}
 .check input:checked+label{text-decoration:line-through;color:#68777f}
-
 .ladder{display:flex;flex-direction:column;gap:7px}
 .rung{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;text-align:left;padding:12px;border:1px solid rgba(130,147,158,.14);background:rgba(255,255,255,.018);color:var(--white);transition:.25s}
 .rung:hover{border-color:var(--cyan);transform:translateX(3px)}
@@ -111,7 +116,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .rung .aim{font:700 10px Orbitron;letter-spacing:.08em;color:var(--muted)}
 .rung.on{border-color:var(--acid);background:linear-gradient(90deg,rgba(216,255,62,.11),rgba(85,246,255,.035));box-shadow:inset 3px 0 var(--acid),0 0 25px rgba(216,255,62,.05)}
 .rung.on .year,.rung.on .aim{color:var(--acid)}
-
 .form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .field{display:flex;flex-direction:column;gap:7px;color:var(--muted);font:600 12px Orbitron;letter-spacing:.08em;text-transform:uppercase}
 textarea{min-height:82px;resize:vertical}
@@ -119,7 +123,6 @@ textarea{min-height:82px;resize:vertical}
 .item{padding:13px;border-left:2px solid var(--cyan);background:rgba(255,255,255,.025)}
 .item strong{font:700 13px Orbitron;letter-spacing:.025em}.item span{display:block;color:var(--muted);font-size:16px;line-height:1.25;margin-top:5px}
 .empty{border-left-color:rgba(130,147,158,.25)}
-
 .achievement{
   display:none;margin-top:16px;padding:18px;border:1px solid var(--acid);
   background:linear-gradient(110deg,rgba(216,255,62,.12),rgba(85,246,255,.06));position:relative
@@ -128,11 +131,9 @@ textarea{min-height:82px;resize:vertical}
 @keyframes unlock{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
 .achievement .tag{font:800 9px Orbitron;letter-spacing:.2em;color:var(--acid)}
 .achievement h3{font:800 25px Orbitron;margin:7px 0 3px}.achievement p{margin:0;color:#b9c8ce;font-size:16px}
-
 footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;letter-spacing:.07em;line-height:1.65;border-top:1px solid rgba(130,147,158,.13)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#0c161d;border:1px solid var(--acid);padding:13px 18px;box-shadow:0 0 35px rgba(216,255,62,.16);font:700 11px Orbitron;letter-spacing:.06em;opacity:0;pointer-events:none;transition:.3s;z-index:20}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-
 @media(max-width:850px){
  .hero,.grid,.split,.age-panel{grid-template-columns:1fr}
  .age-calculator{border-left:0;border-top:1px solid var(--line2);padding:14px 0 0}
@@ -148,14 +149,12 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
  h1{font-size:39px}.lede{font-size:18px}
  .age-command:before{display:none}
 }
-
 .age-panel{
   display:grid;
   grid-template-columns:1fr 250px;
   gap:36px;
   align-items:center;
 }
-
 .age-calculator{
   border-left:1px solid var(--line2);
   padding-left:20px;
@@ -182,7 +181,6 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
     <div class="brand">WALSALL ACES // PLAYER DEVELOPMENT SYSTEM</div>
     <div class="status"><i></i> MISSION ACTIVE</div>
   </div>
-
   <header class="hero">
     <div class="profile-wrap">
       <div class="orbit"></div>
@@ -198,10 +196,10 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       </div>
     </div>
   </header>
-
   <section class="age-command">
     <div class="age-panel">
       <div>
+        <div class="vision-header">VISION</div>
         <p class="mission" id="targetLine">To become the greatest tennis player the senior age groups have ever seen.</p>
         <p class="age-line" id="ageLine"></p>
       </div>
@@ -212,9 +210,7 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       </div>
     </div>
   </section>
-
   <section class="stats" id="stats"></section>
-
   <div class="grid">
     <section class="card">
       <div class="mission-label">CURRENT OPERATIONS // WEEKLY MISSION</div>
@@ -227,7 +223,6 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
         <p id="achievementText"></p>
       </div>
     </section>
-
     <section class="card">
       <div class="mission-label">LONG GAME // AGE ASCENSION</div>
       <h2>The <em>Ascension</em></h2>
@@ -235,7 +230,6 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       <div class="ladder" id="ladder"></div>
     </section>
   </div>
-
   <div class="split">
     <section class="card">
       <div class="mission-label">FIELD INTELLIGENCE // SESSION DATA</div>
@@ -260,7 +254,6 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       </form>
       <div class="list" id="sessions"></div>
     </section>
-
     <section class="card">
       <div class="mission-label">COMPETITION // MATCH ARCHIVE</div>
       <h2>Match <em>Book</em></h2>
@@ -278,14 +271,12 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       <div class="list" id="matches"></div>
     </section>
   </div>
-
   <footer>
     ROAD TO TENNIS GREATNESS // PERSONAL PLAYER SYSTEM<br>
     Stored on this device only. British seniors run in five-year bands, with formal competition continuing through the 85s and 90s.
   </footer>
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
 const KEY="road-to-greatness-v2";
 const WEEK=[
@@ -303,7 +294,6 @@ const RUNGS=[
  ["80s","THE ENDURANCE","Play the oldest fields that still fill a draw.","Target"],
  ["85s+","THE LEGACY","The final bands still crowned. Finish the road there.","Target"]
 ];
-
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return{}}}
 function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
 function weekId(){
@@ -349,17 +339,14 @@ function render(){
   [d.matches.length,"Matches archived"],
   [completed+"/5","Weekly mission"]
  ].map(x=>`<div class="stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join("");
-
  document.getElementById("week").innerHTML=WEEK.map((x,i)=>
   `<div class="check"><input type="checkbox" data-week="${i}" ${d.week[i]?"checked":""}><label>${x}</label></div>`).join("");
-
  const achievement=document.getElementById("achievement");
  if(completed===5){
    achievement.classList.add("show");
    document.getElementById("achievementTitle").textContent="WEEK: 100% COMPLETE";
    document.getElementById("achievementText").textContent="Five actions executed. The mission is not theoretical anymore — it is in the log.";
  }else achievement.classList.remove("show");
-
  document.getElementById("ladder").innerHTML=RUNGS.map((r,i)=>{
   const done=!!d.achieved[i];
   return `<button type="button" class="rung ${d.rung===i?"on ":""}${done?"achieved":""}" data-rung="${i}">
@@ -374,12 +361,10 @@ function render(){
     <span class="target-state ${done?"done":"pending"}">${done?"✓ ACHIEVED":(d.rung===i?"ACTIVE":"TARGET")}</span>
   </button>`
 }).join("");
-
  document.getElementById("sessions").innerHTML=d.sessions.slice(0,8).map(s=>{
   const p=s.attempts?Math.round(s.in/s.attempts*100)+"% first serves in":"No serve ratio";
   return `<div class="item"><strong>${esc(s.date)} // ${esc(s.type)} // ${p}</strong><span>${esc(s.fault)}${s.note?" — "+esc(s.note):""}</span></div>`
  }).join("")||`<div class="item empty"><span>Session archive empty. The first entry starts the record.</span></div>`;
-
  document.getElementById("matches").innerHTML=d.matches.slice(0,8).map(m=>
   `<div class="item"><strong>${esc(m.date)} // ${esc(m.opponent)} // ${esc(m.score||"NO SCORE")}</strong><span>${esc(m.pattern||"No pattern noted")}</span></div>`
  ).join("")||`<div class="item empty"><span>Match archive empty. Your first battle is waiting to be recorded.</span></div>`;
@@ -415,7 +400,6 @@ document.getElementById("sessionForm").onsubmit=e=>{
 document.getElementById("matchForm").onsubmit=e=>{
  e.preventDefault();const f=new FormData(e.target),d=state();
  d.matches.unshift({date:f.get("date"),opponent:f.get("opponent"),score:f.get("score"),pattern:f.get("pattern"),age:calculateAge(d.birthDate)});
-
  save(d);e.target.reset();document.querySelectorAll("#matchForm input[type=date]").forEach(x=>x.value=new Date().toISOString().slice(0,10));render();toast("MATCH ARCHIVED // BATTLE RECORDED");
 };
 document.querySelectorAll('input[type="date"]').forEach(x=>x.value=new Date().toISOString().slice(0,10));
