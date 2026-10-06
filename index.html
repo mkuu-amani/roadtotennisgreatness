@@ -106,7 +106,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .check{display:flex;gap:12px;align-items:flex-start;padding:14px 2px;border-top:1px solid rgba(130,147,158,.12);transition:.2s}
 .check:hover{background:rgba(85,246,255,.025)}
 .check input{margin-top:2px;width:19px;height:19px;accent-color:var(--acid)}
-.check label{font-size:19px;line-height:1.2}
+.check label{font-size:19px;line-height:1.25}
 .check input:checked+label{text-decoration:line-through;color:#68777f}
 .ladder{display:flex;flex-direction:column;gap:7px}
 .rung{display:grid;grid-template-columns:54px 1fr auto;gap:10px;align-items:center;text-align:left;padding:12px;border:1px solid rgba(130,147,158,.14);background:rgba(255,255,255,.018);color:var(--white);transition:.25s}
@@ -215,7 +215,7 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
     <section class="card">
       <div class="mission-label">CURRENT OPERATIONS // WEEKLY MISSION</div>
       <h2>Mission <em>Control</em></h2>
-      <p class="sub">Five actions. No theatre. The week resets every Monday. Completion is evidence that the mission is moving.</p>
+      <p class="sub">Five deliberate actions. Clear targets. The week resets every Monday. Completion is evidence that the mission is moving.</p>
       <div id="week"></div>
       <div class="achievement" id="achievement">
         <div class="tag">ACHIEVEMENT UNLOCKED</div>
@@ -280,11 +280,11 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
 <script>
 const KEY="road-to-greatness-v2";
 const WEEK=[
- "Serve session — count balls in",
- "Wall or machine — one pattern only",
- "Real set — no coaching mid-match",
- "Strength — legs, hips, back, grip",
- "Second strength session — or a true rest day"
+  "Serve session — hit 70%+ first serves in and 90%+ second serves in (count every ball)",
+  "Ball machine — one winning pattern only (wide serve → wrong-foot, body serve → inside-out FH, or kick serve → recover centre)",
+  "Competitive set or match simulation — play every point as if it is a match point (no mid-point advice)",
+  "Strength session — legs, hips, core and grip (the engines of senior longevity)",
+  "Second strength session or true recovery day (sleep, mobility, or complete rest)"
 ];
 const RUNGS=[
  ["60s","THE FOUNDATION","Take the club. Then take the 60s event.","Current battlefield"],
