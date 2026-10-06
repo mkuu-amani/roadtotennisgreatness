@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Long Game</title>
+<style>
+:root {
+  --ink: #07140d;
+  --court: #102418;
+  --panel: #173222;
+  --line: rgba(232, 220, 184, 0.16);
+  --cream: #f4efe2;
+  --muted: #b7c4b4;
+  --ball: #d6ff4a;
+  --ball-deep: #b6e000;
+  --clay: #e36a45;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  color: var(--cream);
+  background:
+    radial-gradient(900px 420px at 80% -10%, rgba(214,255,74,0.16), transparent 60%),
+    linear-gradient(180deg, #0c1c13 0%, #07140d 40%, #102418 100%);
+  min-height: 100vh;
+}
+button, input, select, textarea { font: inherit; }
+a { color: var(--ball); }
+.app { width: min(1100px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 70px; }
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+.kicker {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ball);
+  margin: 0 0 8px;
+}
+h1 { font-size: clamp(40px, 7vw, 78px); line-height: 0.9; margin: 0; font-weight: 500; }
+h1 span { font-style: italic; color: var(--ball); }
+.lede { max-width: 460px; color: var(--muted); line-height: 1.5; margin: 10px 0 0; }
+.name-row { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+.name-row input, .field input, .field select, .field textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  color: var(--cream);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.name-row input { width: min(260px, 70vw); }
+.grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 16px; }
+.card {
+  background: rgba(23, 50, 34, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+}
+.card h2 { margin: 0 0 6px; font-size: 28px; font-weight: 500; }
+.card p.sub { margin: 0 0 16px; color: var(--muted); line-height: 1.45; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat { background: rgba(0,0,0,0.18); border-radius: 16px; padding: 14px; }
+.stat b { display: block; font-size: 28px; font-family: "Segoe UI", sans-serif; }
+.stat span { color: var(--muted); font-family: "Segoe UI", sans-serif; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); }
+.check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--ball-deep); }
+.check label { line-height: 1.4; }
+.ladder { display: flex; flex-direction: column; gap: 8px; }
+.rung { display: flex; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; background: rgba(0,0,0,0.16); font-family: "Segoe UI", sans-serif; font-size: 14px; }
+.rung.on { outline: 1px solid var(--ball); }
+.form { display: grid; gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 6px; font-family: "Segoe UI", sans-serif; font-size: 13px; color: var(--muted); }
+.field textarea { min-height: 80px; resize: vertical; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn {
+  border: 0; border-radius: 999px; padding: 12px 16px; cursor: pointer;
+  background: var(--ball); color: var(--ink); font-family: "Segoe UI", sans-serif; font-weight: 800;
+}
+.btn.ghost { background: transparent; color: var(--cream); border: 1px solid var(--line); }
+.list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.item { padding: 12px; border-radius: 14px; background: rgba(0,0,0,0.16); }
+.item strong { display: block; }
+.item span { color: var(--muted); font-family: "Segoe UI", sans-serif; font-size: 13px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+footer { margin-top: 22px; color: var(--muted); font-family: "Segoe UI", sans-serif; font-size: 13px; }
+@media (max-width: 800px) {
+  .grid, .split, .stats, .row { grid-template-columns: 1fr; }
+  .top { flex-direction: column; align-items: start; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div>
+      <p class="kicker">Walsall Aces · self-coaching log</p>
+      <h1>The <span>long</span> game</h1>
+      <p class="lede">Not the pro record. The honest one: best 60s player you can become, then the 65s. Film it, count it, write it down.</p>
+      <div class="name-row">
+        <input id="playerName" maxlength="40" placeholder="Your name" aria-label="Your name">
+        <button class="btn ghost" id="saveName" type="button">Save</button>
+      </div>
+    </div>
+    <div class="card" style="min-width:240px">
+      <p class="kicker">Target</p>
+      <h2 id="targetLine">60s, then 65s</h2>
+      <p class="sub" id="ageLine">Set your birth year in the match book if you want the countdown.</p>
+    </div>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>This week</h2>
+      <p class="sub">Three court sessions, two strength sessions, one real set. Tick them. They reset each Monday.</p>
+      <div id="week"></div>
+    </section>
+    <section class="card">
+      <h2>The ladder</h2>
+      <p class="sub">Mark the rung you are actually on.</p>
+      <div class="ladder" id="ladder"></div>
+    </section>
+  </div>
+
+  <div class="split">
+    <section class="card">
+      <h2>Log a session</h2>
+      <p class="sub">One fault for a fortnight. Count first serves in.</p>
+      <form class="form" id="sessionForm">
+        <div class="row">
+          <label class="field">Date<input type="date" name="date" required></label>
+          <label class="field">Type
+            <select name="type">
+              <option>Serve basket</option>
+              <option>Wall or machine</option>
+              <option>Practice set</option>
+              <option>Match</option>
+              <option>Strength</option>
+            </select>
+          </label>
+        </div>
+        <div class="row">
+          <label class="field">Serves in<input type="number" name="in" min="0" value="0"></label>
+          <label class="field">Serves hit<input type="number" name="out" min="0" value="0"></label>
+        </div>
+        <label class="field">Fault of the fortnight
+          <select name="fault">
+            <option>Toss and first serve</option>
+            <option>Late contact</option>
+            <option>No recovery to the middle</option>
+          </select>
+        </label>
+        <label class="field">Note<textarea name="note" maxlength="400" placeholder="What did the film show?"></textarea></label>
+        <button class="btn" type="submit">Save session</button>
+      </form>
+      <div class="list" id="sessions"></div>
+    </section>
+
+    <section class="card">
+      <h2>Match book</h2>
+      <p class="sub">Score, and the one pattern that beat you. That pattern is next month’s drill.</p>
+      <form class="form" id="matchForm">
+        <div class="row">
+          <label class="field">Date<input type="date" name="date" required></label>
+          <label class="field">Birth year<input type="number" id="birthYear" name="birthYear" min="1940" max="1980" value="1964"></label>
+        </div>
+        <label class="field">Opponent<input name="opponent" maxlength="80" required placeholder="Name or club"></label>
+        <label class="field">Score<input name="score" maxlength="40" placeholder="6-4, 3-6, 10-6"></label>
+        <label class="field">Pattern that beat you<textarea name="pattern" maxlength="300" placeholder="Wide serve, then wrong-foot"></textarea></label>
+        <button class="btn" type="submit">Save match</button>
+      </form>
+      <div class="list" id="matches"></div>
+    </section>
+  </div>
+
+  <footer>
+    Stored on this device only. Film from behind the baseline. If a joint hurts for more than a few days, stop and get it looked at.
+  </footer>
+</div>
+<script>
+const KEY = "long-game-v1";
+const WEEK = ["Serve session, count balls in", "Wall or machine, one pattern only", "Real set, no coaching mid-match", "Strength: legs, hips, back, grip", "Strength or rest, not both as heroics"];
+const RUNGS = ["Club practice", "Club championship or box league", "LTA seniors 60s tournament", "County veterans", "65s, the year you turn 65"];
+
+function load() {
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+  catch (e) { return {}; }
+}
+function save(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
+function state() {
+  const data = load();
+  data.name = data.name || "";
+  data.birthYear = data.birthYear || 1964;
+  data.rung = data.rung || 0;
+  data.sessions = data.sessions || [];
+  data.matches = data.matches || [];
+  data.week = data.week || {};
+  data.weekId = data.weekId || weekId();
+  if (data.weekId !== weekId()) { data.week = {}; data.weekId = weekId(); }
+  return data;
+}
+function weekId() {
+  const now = new Date();
+  const day = (now.getDay() + 6) % 7;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - day);
+  return monday.toISOString().slice(0, 10);
+}
+function age(year) { return new Date().getFullYear() - Number(year); }
+
+function render() {
+  const data = state();
+  document.getElementById("playerName").value = data.name;
+  document.getElementById("birthYear").value = data.birthYear;
+  const years = age(data.birthYear);
+  document.getElementById("ageLine").textContent = data.name
+    ? data.name + " · " + years + " · " + (years >= 65 ? "65s are open" : (65 - years) + " years to the 65s")
+    : years + " this year. " + (years >= 65 ? "The 65s are open." : (65 - years) + " years until the 65s.");
+  const serves = data.sessions.reduce((sum, s) => sum + Number(s.in || 0), 0);
+  const attempts = data.sessions.reduce((sum, s) => sum + Number(s.attempts || 0), 0);
+  const pct = attempts ? Math.round((serves / attempts) * 100) : 0;
+  document.getElementById("stats").innerHTML = [
+    [data.sessions.length, "Sessions logged"],
+    [pct + "%", "First serves in"],
+    [data.matches.length, "Matches booked"]
+  ].map(function (pair) {
+    return "<div class='stat'><b>" + pair[0] + "</b><span>" + pair[1] + "</span></div>";
+  }).join("");
+
+  document.getElementById("week").innerHTML = WEEK.map(function (item, i) {
+    const on = data.week[i] ? " checked" : "";
+    return "<div class='check'><input type='checkbox' data-week='" + i + "'" + on + "><label>" + item + "</label></div>";
+  }).join("");
+
+  document.getElementById("ladder").innerHTML = RUNGS.map(function (rung, i) {
+    return "<button type='button' class='rung" + (data.rung === i ? " on" : "") + "' data-rung='" + i + "'><span>" + (i + 1) + ". " + rung + "</span><span>" + (data.rung === i ? "Here" : "") + "</span></button>";
+  }).join("");
+
+  document.getElementById("sessions").innerHTML = data.sessions.slice(0, 6).map(function (s) {
+    const pctText = s.attempts ? " · " + Math.round((s.in / s.attempts) * 100) + "% in" : "";
+    return "<div class='item'><strong>" + s.date + " · " + s.type + pctText + "</strong><span>" + s.fault + (s.note ? " — " + s.note : "") + "</span></div>";
+  }).join("") || "<div class='item'><span>No sessions yet.</span></div>";
+
+  document.getElementById("matches").innerHTML = data.matches.slice(0, 6).map(function (m) {
+    return "<div class='item'><strong>" + m.date + " · " + m.opponent + " · " + (m.score || "no score") + "</strong><span>" + (m.pattern || "No pattern noted") + "</span></div>";
+  }).join("") || "<div class='item'><span>No matches yet.</span></div>";
+}
+
+document.getElementById("saveName").onclick = function () {
+  const data = state();
+  data.name = document.getElementById("playerName").value.trim();
+  save(data);
+  render();
+};
+document.getElementById("week").onclick = function (event) {
+  const box = event.target.closest("input[data-week]");
+  if (!box) return;
+  const data = state();
+  data.week[box.dataset.week] = box.checked;
+  save(data);
+};
+document.getElementById("ladder").onclick = function (event) {
+  const rung = event.target.closest("[data-rung]");
+  if (!rung) return;
+  const data = state();
+  data.rung = Number(rung.dataset.rung);
+  save(data);
+  render();
+};
+document.getElementById("sessionForm").onsubmit = function (event) {
+  event.preventDefault();
+  const form = new FormData(event.target);
+  const data = state();
+  data.sessions.unshift({
+    date: form.get("date"),
+    type: form.get("type"),
+    in: Number(form.get("in") || 0),
+    attempts: Number(form.get("out") || 0),
+    fault: form.get("fault"),
+    note: form.get("note")
+  });
+  save(data);
+  event.target.reset();
+  render();
+};
+document.getElementById("matchForm").onsubmit = function (event) {
+  event.preventDefault();
+  const form = new FormData(event.target);
+  const data = state();
+  data.birthYear = Number(form.get("birthYear") || 1964);
+  data.matches.unshift({
+    date: form.get("date"),
+    opponent: form.get("opponent"),
+    score: form.get("score"),
+    pattern: form.get("pattern")
+  });
+  save(data);
+  event.target.reset();
+  render();
+};
+document.querySelectorAll("input[type=date]").forEach(function (input) {
+  input.value = new Date().toISOString().slice(0, 10);
+});
+render();
+</script>
+</body>
+</html>
