@@ -68,7 +68,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .btn:hover{transform:translateY(-1px);box-shadow:0 0 30px rgba(85,246,255,.25)}
 .btn.ghost{background:transparent;color:var(--cyan)}
 .btn.acid{background:var(--acid);border-color:var(--acid);color:#111700}
-.btn.danger{background:transparent;color:var(--danger);border-color:rgba(255,85,112,.7);box-shadow:none;padding:9px 12px;font-size:10px}
+.btn.danger{background:transparent;color:var(--danger);border-color:var(--danger);box-shadow:none;padding:9px 12px;font-size:10px}
 .btn.danger:hover{background:rgba(255,85,112,.12);box-shadow:0 0 18px rgba(255,85,112,.14)}
 .age-command{
   margin:0 0 20px;padding:18px 20px;border:1px solid var(--line2);background:linear-gradient(105deg,rgba(216,255,62,.055),rgba(85,246,255,.035));
@@ -120,20 +120,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 
 .rung.on .year,.rung.on .aim{color:var(--acid)}
 .form{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .field{display:flex;flex-direction:column;gap:7px;color:var(--muted);font:600 12px Orbitron;letter-spacing:.08em;text-transform:uppercase}
-.field .hint{font:600 11px "Barlow Condensed",sans-serif;letter-spacing:.02em;text-transform:none;color:#6f838c;line-height:1.3}
 textarea{min-height:82px;resize:vertical}
-.archive-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
-.archive-head span{font:700 10px Orbitron;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.list{display:flex;flex-direction:column;gap:7px;margin-top:10px;max-height:390px;overflow:auto}
-.item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:13px;border-left:2px solid var(--cyan);background:rgba(255,255,255,.025)}
+.archive-bar{display:flex;justify-content:flex-end;margin-top:14px}
+.list{display:flex;flex-direction:column;gap:7px;margin-top:16px;max-height:390px;overflow:auto}
+.item{padding:13px;border-left:2px solid var(--cyan);background:rgba(255,255,255,.025)}
 .item strong{font:700 13px Orbitron;letter-spacing:.025em}.item span{display:block;color:var(--muted);font-size:16px;line-height:1.25;margin-top:5px}
-.item .age-chip{color:var(--acid)}
 .empty{border-left-color:rgba(130,147,158,.25)}
-.remove{
-  border:1px solid rgba(255,85,112,.5);background:transparent;color:var(--danger);
-  font:800 9px Orbitron;letter-spacing:.08em;padding:7px 8px;border-radius:5px;text-transform:uppercase;white-space:nowrap
-}
-.remove:hover{background:rgba(255,85,112,.12)}
 input[readonly]{color:var(--cyan);border-color:rgba(85,246,255,.35);background:rgba(85,246,255,.05)}
 .achievement{
   display:none;margin-top:16px;padding:18px;border:1px solid var(--acid);
@@ -160,7 +152,6 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
  .row{grid-template-columns:1fr}.card{padding:17px}
  h1{font-size:39px}.lede{font-size:18px}
  .age-command:before{display:none}
- .archive-head{align-items:flex-start;flex-direction:column}
 }
 .age-panel{
   display:grid;
@@ -265,10 +256,7 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
         <label class="field">Field note<textarea name="note" maxlength="400" placeholder="What did the film show? What changes next?"></textarea></label>
         <button class="btn" type="submit">Archive Session</button>
       </form>
-      <div class="archive-head">
-        <span id="sessionCount">Archive empty</span>
-        <button class="btn danger" id="clearSessions" type="button">Clear archive</button>
-      </div>
+      <div class="archive-bar"><button class="btn danger" id="clearSessions" type="button">Clear archive</button></div>
       <div class="list" id="sessions"></div>
     </section>
     <section class="card">
@@ -278,20 +266,14 @@ footer{margin-top:24px;padding:16px 2px;color:#61727c;font:600 11px Orbitron;let
       <form class="form" id="matchForm">
         <div class="row">
           <label class="field">Date<input type="date" name="date" id="matchDate" required></label>
-          <label class="field">Player age at match
-            <input type="text" id="matchAge" name="matchAge" readonly aria-readonly="true" placeholder="Set date of birth">
-            <span class="hint">Filled from date of birth and this match date. Updates when either date changes.</span>
-          </label>
+          <label class="field">Player age at match<input type="text" id="matchAge" name="matchAge" readonly></label>
         </div>
         <label class="field">Opponent<input name="opponent" maxlength="80" required placeholder="Name or club"></label>
         <label class="field">Score<input name="score" maxlength="40" placeholder="6-4, 3-6, 10-6"></label>
         <label class="field">Pattern that beat you<textarea name="pattern" maxlength="300" placeholder="Wide serve, then wrong-foot"></textarea></label>
         <button class="btn acid" type="submit">Archive Match</button>
       </form>
-      <div class="archive-head">
-        <span id="matchCount">Archive empty</span>
-        <button class="btn danger" id="clearMatches" type="button">Clear archive</button>
-      </div>
+      <div class="archive-bar"><button class="btn danger" id="clearMatches" type="button">Clear archive</button></div>
       <div class="list" id="matches"></div>
     </section>
   </div>
@@ -332,29 +314,23 @@ function state(){
  if(d.weekId!==weekId()){d.week={};d.weekId=weekId()}
  return d;
 }
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[m]))}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function calculateAge(dateString, asOfString){
- if(!dateString) return null;
+ if(!dateString)return "—";
  const dob=new Date(dateString+"T00:00:00");
- if(Number.isNaN(dob.getTime())) return null;
+ if(Number.isNaN(dob.getTime()))return "—";
  const asOf=asOfString?new Date(asOfString+"T00:00:00"):new Date();
- if(Number.isNaN(asOf.getTime())) return null;
+ if(Number.isNaN(asOf.getTime()))return "—";
  let age=asOf.getFullYear()-dob.getFullYear();
  const beforeBirthday=(asOf.getMonth()<dob.getMonth()) || (asOf.getMonth()===dob.getMonth() && asOf.getDate()<dob.getDate());
- if(beforeBirthday) age--;
+ if(beforeBirthday)age--;
  return Math.max(0,age);
-}
-function todayStamp(){
- const n=new Date();
- return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");
 }
 function syncMatchAge(){
  const d=state();
  const matchDate=document.getElementById("matchDate").value;
  const age=calculateAge(d.birthDate, matchDate);
- const field=document.getElementById("matchAge");
- field.value=age===null?"":String(age);
- field.placeholder=age===null?"Set date of birth":"";
+ document.getElementById("matchAge").value=age==="—"?"":age;
  return age;
 }
 function toast(msg){
@@ -366,8 +342,8 @@ function render(){
  document.getElementById("playerName").value=d.name;
  document.getElementById("birthDate").value=d.birthDate;
  const age=calculateAge(d.birthDate);
- document.getElementById("calculatedAge").textContent=age===null?"—":age;
- document.getElementById("ageLine").textContent=(d.name?d.name+"  //  ":"")+(age===null?"—":age)+" YEARS OLD  //  AGE IS PART OF THE MISSION";
+ document.getElementById("calculatedAge").textContent=age;
+ document.getElementById("ageLine").textContent=(d.name?d.name+"  //  ":"")+age+" YEARS OLD  //  AGE IS PART OF THE MISSION";
  const serves=d.sessions.reduce((n,s)=>n+Number(s.in||0),0);
  const attempts=d.sessions.reduce((n,s)=>n+Number(s.attempts||0),0);
  const pct=attempts?Math.round(serves/attempts*100):0;
@@ -400,26 +376,20 @@ function render(){
     <span class="target-state ${done?"done":"pending"}">${done?"✓ ACHIEVED":(d.rung===i?"ACTIVE":"TARGET")}</span>
   </button>`
 }).join("");
- document.getElementById("sessionCount").textContent=d.sessions.length?d.sessions.length+" session"+(d.sessions.length===1?"":"s")+" archived":"Archive empty";
- document.getElementById("sessions").innerHTML=d.sessions.slice(0,12).map((s,i)=>{
+ document.getElementById("sessions").innerHTML=d.sessions.slice(0,8).map(s=>{
   const p=s.attempts?Math.round(s.in/s.attempts*100)+"% first serves in":"No serve ratio";
-  return `<div class="item"><div><strong>${esc(s.date)} // ${esc(s.type)} // ${p}</strong><span>${esc(s.fault)}${s.note?" — "+esc(s.note):""}</span></div><button class="remove" type="button" data-remove-session="${i}">Remove</button></div>`
+  return `<div class="item"><strong>${esc(s.date)} // ${esc(s.type)} // ${p}</strong><span>${esc(s.fault)}${s.note?" — "+esc(s.note):""}</span></div>`
  }).join("")||`<div class="item empty"><span>Session archive empty. The first entry starts the record.</span></div>`;
- document.getElementById("matchCount").textContent=d.matches.length?d.matches.length+" match"+(d.matches.length===1?"":"es")+" archived":"Archive empty";
- document.getElementById("matches").innerHTML=d.matches.slice(0,12).map((m,i)=>{
+ document.getElementById("matches").innerHTML=d.matches.slice(0,8).map(m=>{
   const matchAge=calculateAge(d.birthDate, m.date);
-  const ageText=matchAge===null?"AGE NOT SET":matchAge+" YRS";
-  return `<div class="item"><div><strong>${esc(m.date)} // <span class="age-chip">${esc(ageText)}</span> // ${esc(m.opponent)} // ${esc(m.score||"NO SCORE")}</strong><span>${esc(m.pattern||"No pattern noted")}</span></div><button class="remove" type="button" data-remove-match="${i}">Remove</button></div>`
+  return `<div class="item"><strong>${esc(m.date)} // AGE ${esc(matchAge)} // ${esc(m.opponent)} // ${esc(m.score||"NO SCORE")}</strong><span>${esc(m.pattern||"No pattern noted")}</span></div>`
  }).join("")||`<div class="item empty"><span>Match archive empty. Your first battle is waiting to be recorded.</span></div>`;
  syncMatchAge();
 }
 document.getElementById("birthDate").onchange=()=>{
  const d=state();d.birthDate=document.getElementById("birthDate").value;d.birthYear=Number(d.birthDate.slice(0,4));save(d);render();toast("PLAYER AGE RECALCULATED");
 };
-document.getElementById("matchDate").onchange=()=>{
- const age=syncMatchAge();
- toast(age===null?"SET DATE OF BIRTH TO CALCULATE MATCH AGE":"MATCH AGE SET // "+age);
-};
+document.getElementById("matchDate").onchange=()=>syncMatchAge();
 document.getElementById("saveName").onclick=()=>{
  const d=state();d.name=document.getElementById("playerName").value.trim();save(d);render();toast("PLAYER ID LOCKED");
 };
@@ -443,15 +413,14 @@ document.getElementById("ladder").onclick=e=>{
 document.getElementById("sessionForm").onsubmit=e=>{
  e.preventDefault();const f=new FormData(e.target),d=state();
  d.sessions.unshift({date:f.get("date"),type:f.get("type"),in:Number(f.get("in")||0),attempts:Number(f.get("attempts")||0),fault:f.get("fault"),note:f.get("note")});
- save(d);e.target.reset();document.querySelector("#sessionForm input[type=date]").value=todayStamp();render();toast("SESSION ARCHIVED // EVIDENCE ADDED");
+ save(d);e.target.reset();document.querySelectorAll("#sessionForm input[type=date]").forEach(x=>x.value=new Date().toISOString().slice(0,10));render();toast("SESSION ARCHIVED // EVIDENCE ADDED");
 };
 document.getElementById("matchForm").onsubmit=e=>{
  e.preventDefault();const f=new FormData(e.target),d=state();
  const matchDate=f.get("date");
  const age=calculateAge(d.birthDate, matchDate);
- if(age===null){toast("SET DATE OF BIRTH BEFORE ARCHIVING A MATCH");return;}
  d.matches.unshift({date:matchDate,opponent:f.get("opponent"),score:f.get("score"),pattern:f.get("pattern"),age});
- save(d);e.target.reset();document.getElementById("matchDate").value=todayStamp();render();toast("MATCH ARCHIVED // AGE "+age+" RECORDED");
+ save(d);e.target.reset();document.querySelectorAll("#matchForm input[type=date]").forEach(x=>x.value=new Date().toISOString().slice(0,10));render();toast("MATCH ARCHIVED // BATTLE RECORDED");
 };
 document.getElementById("clearSessions").onclick=()=>{
  const d=state();
@@ -465,19 +434,7 @@ document.getElementById("clearMatches").onclick=()=>{
  if(!confirm("Clear the entire match book? This cannot be undone on this device."))return;
  d.matches=[];save(d);render();toast("MATCH ARCHIVE CLEARED");
 };
-document.getElementById("sessions").onclick=e=>{
- const b=e.target.closest("[data-remove-session]");if(!b)return;
- const d=state();
- d.sessions.splice(Number(b.dataset.removeSession),1);
- save(d);render();toast("SESSION REMOVED");
-};
-document.getElementById("matches").onclick=e=>{
- const b=e.target.closest("[data-remove-match]");if(!b)return;
- const d=state();
- d.matches.splice(Number(b.dataset.removeMatch),1);
- save(d);render();toast("MATCH REMOVED");
-};
-document.querySelectorAll('input[type="date"]').forEach(x=>{if(x.id!=="birthDate")x.value=todayStamp()});
+document.querySelectorAll('input[type="date"]').forEach(x=>x.value=new Date().toISOString().slice(0,10));
 render();
 </script>
 </body>
