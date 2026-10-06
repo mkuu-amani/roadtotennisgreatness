@@ -24,8 +24,8 @@ body {
   font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
   color: var(--cream);
   background:
-    radial-gradient(900px 420px at 80% -10%, rgba(214,255,74,0.16), transparent 60%),
-    linear-gradient(180deg, #0c1c13 0%, #07140d 40%, #102418 100%);
+    linear-gradient(180deg, rgba(7, 20, 13, 0.78), rgba(7, 20, 13, 0.88)),
+    url("tennis-warrior.jpg") center 20% / cover no-repeat fixed;
   min-height: 100vh;
 }
 button, input, select, textarea { font: inherit; }
@@ -50,7 +50,17 @@ a { color: var(--ball); }
 h1 { font-size: clamp(40px, 7vw, 78px); line-height: 0.9; margin: 0; font-weight: 500; }
 h1 span { font-style: italic; color: var(--ball); }
 .lede { max-width: 460px; color: var(--muted); line-height: 1.5; margin: 10px 0 0; }
-.name-row { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+.profile {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 72% 28%;
+  border: 3px solid var(--ball);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  flex-shrink: 0;
+}
+.identity { display: flex; gap: 16px; align-items: center; }
 .name-row input, .field input, .field select, .field textarea {
   background: rgba(255,255,255,0.04);
   border: 1px solid var(--line);
@@ -103,13 +113,16 @@ footer { margin-top: 22px; color: var(--muted); font-family: "Segoe UI", sans-se
 <body>
 <div class="app">
   <header class="top">
-    <div>
-      <p class="kicker">Walsall Aces · self-coaching log</p>
-      <h1>The <span>long</span> game</h1>
-      <p class="lede">Not the pro record. The honest one: best 60s player you can become, then the 65s. Film it, count it, write it down.</p>
-      <div class="name-row">
-        <input id="playerName" maxlength="40" placeholder="Your name" aria-label="Your name">
-        <button class="btn ghost" id="saveName" type="button">Save</button>
+    <div class="identity">
+      <img class="profile" src="tennis-warrior.jpg" alt="Profile picture">
+      <div>
+        <p class="kicker">Walsall Aces · self-coaching log</p>
+        <h1>The <span>long</span> game</h1>
+        <p class="lede">Not the pro record. The honest one: best 60s player you can become, then the 65s. Film it, count it, write it down.</p>
+        <div class="name-row">
+          <input id="playerName" maxlength="40" placeholder="Your name" aria-label="Your name">
+          <button class="btn ghost" id="saveName" type="button">Save</button>
+        </div>
       </div>
     </div>
     <div class="card" style="min-width:240px">
